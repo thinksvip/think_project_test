@@ -25,7 +25,7 @@ class AuthenticateRequest extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => ['required','unique:users', new Mobile],
+            'mobile' => ['required','integer', new Mobile],
             'password' => 'required|string|min:6|max:15',
         ];
     }
