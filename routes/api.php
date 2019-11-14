@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//注册/登录/登出
+Route::prefix('FrontEnd/V1')->namespace('FrontEnd\V1')->group(function (){
+    Route::post('authenticate','Auth\ApiController@authenticate');
+    Route::post('register','Auth\ApiController@register');
+    Route::get('logout','Auth\ApiController@logout');
 });
