@@ -18,7 +18,7 @@ class ApiController extends Controller
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
             }
-        } catch (JWTException $e) {
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $exception) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         return response()->json([
@@ -49,7 +49,12 @@ class ApiController extends Controller
 
     public function logout()
     {
-        JWTAuth::parseToken()->invalidate();
+        try{
+            JWTAuth::parseToken()->invalidate();
+        } catch (\Exception $exception) {
+            return Response()->json(['error' => 'Token Signature could not be verified.']);
+        }
+
         return response()->json(['message' => 'Successfully logged out']);
     }
 }
