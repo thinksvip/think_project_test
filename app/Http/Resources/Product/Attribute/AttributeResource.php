@@ -16,8 +16,9 @@ class AttributeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'attributes_id' => $this->attributes_id,
-            'spec_name' => $this->spec_name,
+            'attribute_name' => $this->attribute_name,
+            'specs' => AttributeSpecResource::collection($this->whenLoaded('specs')),
+            'is_disable' => $this->is_disable,
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories\Product\Attribute;
 
 use App\Models\Product\Attribute;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class CreateAttribute extends BaseRepository
 {
@@ -16,6 +17,21 @@ class CreateAttribute extends BaseRepository
     {
         $this->validate($data);
 
-        $attribute = Attribute::create();
+        DB::transaction(function () use (&$data){
+            $attribute = Attribute::create([
+                'attribute_name' => $data['attribute_name'],
+                'enterprise_id' => $data['enterprise_id'],
+                'is_disable' => $data['is_disable'],
+            ]);
+
+            if(isset($data['specs'])){
+                $data['specs'] = json_decode($data['specs'],true);
+                $attribute->specs()->createMany($data['specs']);
+            }
+
+            $data['id'] = $attribute->id;
+        });
+
+        return Attribute::find($data['id']);
     }
 }
