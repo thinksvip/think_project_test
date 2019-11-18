@@ -24,7 +24,7 @@ class AttributeSpecRequest extends FormRequest
     public function rules()
     {
         return [
-            'attributes_id' => 'required|integer|exists:attributes,id',
+            'attribute_id' => 'required|integer|exists:attributes,id',
             'spec_name' => 'required|string|max:50|unique_with:attribute_specs,attributes_id,spec_name',
         ];
     }

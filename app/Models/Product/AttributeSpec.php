@@ -10,6 +10,6 @@ class AttributeSpec extends Model
 
     public function attribute()
     {
-        return $this->belongsTo(AttributeSpec::class);
+        return $this->belongsTo(Attribute::class);
     }
 }
