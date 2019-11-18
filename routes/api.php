@@ -19,3 +19,14 @@ Route::prefix('FrontEnd/V1')->namespace('FrontEnd\V1')->group(function (){
     Route::post('register','Auth\ApiController@register');
     Route::get('logout','Auth\ApiController@logout');
 });
+
+Route::prefix('FrontEnd/V1')->namespace('FrontEnd\V1')->middleware(['jwt.verify'])->group(function (){
+
+    //商品 Product
+
+    //属性 Attribute
+    Route::apiResource('attribute', 'Product\Attribute\AttributeController');
+    Route::apiResource('attributeSpec', 'Product\Attribute\AttributeSpecController');
+
+});
+
