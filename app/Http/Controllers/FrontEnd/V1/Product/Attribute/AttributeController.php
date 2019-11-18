@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Product\Attribute\AttributeRequest;
 use App\Http\Resources\Product\Attribute\AttributeResource;
 use App\Repositories\Product\Attribute\CreateAttribute;
+use App\Repositories\Product\Attribute\UpdateAttribute;
 use App\Services\Product\Attribute\AttributeService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -73,7 +74,23 @@ class AttributeController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $attribute = app(UpdateAttribute::class)->execute(
+                $request->all()
+                +
+                [
+                    'attribute_id' => $id,
+                ]
+            );
+        } catch (ModelNotFoundException $exception) {
+            return $this->respondNotFound();
+        } catch (ValidationException $exception) {
+            return $this->respondValidatorFailed();
+        } catch (QueryException $exception) {
+            return $this->respondInvalidQuery();
+        }
+
+        return new AttributeResource($attribute);
     }
 
     /**
