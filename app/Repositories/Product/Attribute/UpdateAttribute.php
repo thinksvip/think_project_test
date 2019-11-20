@@ -23,7 +23,7 @@ class UpdateAttribute extends BaseRepository
     public function execute(array $data) : Attribute
     {
         $this->validate($data);
-        DB::transaction(function () use ($data) {
+//        DB::transaction(function () use ($data) {
             $attribute = Attribute::where('enterprise_id',$data['enterprise_id'])->findOrfail($data['attribute_id']);
             //更新attribute
             $attribute->update([
@@ -35,7 +35,7 @@ class UpdateAttribute extends BaseRepository
 //            if(isset($data['specs'])){
 //                $data['specs'] = json_decode($data['specs'],true);
 //                dd($data);
-                //更新/创建新属性值
+//                //更新/创建新属性值
 //                $all_ids = array_map(function () use ($attribute,$data){
 //                    $attribute->specs()->updateOrcreate(
 //                        ['id' =>$data['specs']['id']],
@@ -44,7 +44,7 @@ class UpdateAttribute extends BaseRepository
 //                        ]);
 //                    return $data['specs']['id'];
 //                },$data['specs']);
-//                //删除属性值
+////                //删除属性值
 //                $attribute->specs()->whereNotIn('id', $all_ids)->delete();
 //
 //                foreach($data['specs'] as $spec) {
@@ -52,7 +52,7 @@ class UpdateAttribute extends BaseRepository
 //                    $attribute->save();
 //                }
 //            }
-        });
+//        });
         return Attribute::findOrfail($data['attribute_id']);
     }
 }
