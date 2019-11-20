@@ -82,7 +82,7 @@ class AttributeController extends BaseController
     public function update(AttributeRequest $request, $id)
     {
 //        try{
-            $attribute = app(UpdateAttribute::class)->execute(
+            $attribute = app(AttributeService::class)->update(
                 $request->except(['enterprise_id'])
                 +
                 [
