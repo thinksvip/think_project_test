@@ -81,7 +81,7 @@ class AttributeController extends BaseController
      */
     public function update(AttributeRequest $request, $id)
     {
-//        try{
+       try{
             $attribute = app(AttributeService::class)->update(
                 $request->except(['enterprise_id'])
                 +
@@ -91,13 +91,13 @@ class AttributeController extends BaseController
                     'enterprise_id' => '5',
                 ]
             );
-//        } catch (ModelNotFoundException $exception) {
-//            return $this->respondNotFound();
-//        } catch (ValidationException $exception) {
-//            return $this->respondValidatorFailed($exception->validator);
-//        } catch (QueryException $exception) {
-//            return $this->respondInvalidQuery();
-//        }
+       } catch (ModelNotFoundException $exception) {
+           return $this->respondNotFound();
+       } catch (ValidationException $exception) {
+           return $this->respondValidatorFailed($exception->validator);
+       } catch (QueryException $exception) {
+           return $this->respondInvalidQuery();
+       }
 
         return new AttributeResource($attribute);
     }
