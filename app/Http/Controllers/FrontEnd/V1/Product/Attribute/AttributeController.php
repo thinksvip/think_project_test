@@ -39,14 +39,21 @@ class AttributeController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AttributeRequest $request) : AttributeResource
+    public function store(AttributeRequest $request)
     {
         try{
-            $attribute = app(CreateAttribute::class)->execute($request->all());
+            $attribute = app(CreateAttribute::class)->execute(
+                $request->except(['enterprise_id'])
+                +
+                [
+                    //TODO 企业模块完成后替换
+                    'enterprise_id' => '5',
+                ]
+            );
         } catch (ModelNotFoundException $exception) {
             return $this->respondNotFound();
         } catch (ValidationException $exception) {
-            return $this->respondValidatorFailed();
+            return $this->respondValidatorFailed($exception->validator);
         } catch (QueryException $exception) {
             return $this->respondInvalidQuery();
         }
@@ -72,23 +79,25 @@ class AttributeController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AttributeRequest $request, $id)
     {
-        try{
+//        try{
             $attribute = app(UpdateAttribute::class)->execute(
-                $request->all()
+                $request->except(['enterprise_id'])
                 +
                 [
                     'attribute_id' => $id,
+                    //TODO 企业模块完成后替换
+                    'enterprise_id' => '5',
                 ]
             );
-        } catch (ModelNotFoundException $exception) {
-            return $this->respondNotFound();
-        } catch (ValidationException $exception) {
-            return $this->respondValidatorFailed();
-        } catch (QueryException $exception) {
-            return $this->respondInvalidQuery();
-        }
+//        } catch (ModelNotFoundException $exception) {
+//            return $this->respondNotFound();
+//        } catch (ValidationException $exception) {
+//            return $this->respondValidatorFailed($exception->validator);
+//        } catch (QueryException $exception) {
+//            return $this->respondInvalidQuery();
+//        }
 
         return new AttributeResource($attribute);
     }
