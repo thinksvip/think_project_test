@@ -3,6 +3,7 @@
 namespace App\Repositories\Product\Attribute;
 
 use App\Models\Product\Attribute;
+use App\Models\Product\AttributeSpec;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -37,6 +38,6 @@ class CreateAttribute extends BaseRepository
             $data['id'] = $attribute->id;
         });
 
-        return Attribute::find($data['id']);
+        return Attribute::findOrfail($data['id']);
     }
 }
