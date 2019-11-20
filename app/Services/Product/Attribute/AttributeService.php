@@ -3,8 +3,9 @@
 namespace App\Services\Product\Attribute;
 
 use App\Models\Product\Attribute;
+use Yish\Generators\Foundation\Service\Service;
 
-class AttributeService
+class AttributeService extends Service
 {
 
     protected $model;
