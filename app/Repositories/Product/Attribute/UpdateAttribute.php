@@ -53,6 +53,6 @@ class UpdateAttribute extends BaseRepository
 //                }
 //            }
 //        });
-        return Attribute::findOrfail($data['attribute_id']);
+        return $attribute;
     }
 }

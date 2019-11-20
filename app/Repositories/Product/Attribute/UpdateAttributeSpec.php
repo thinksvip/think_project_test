@@ -20,10 +20,10 @@ class UpdateAttributeSpec extends BaseRepository
     {
         $this->validate($data);
 
-        $spec_name = AttributeSpec::findOrfail($data['id']);
-        $spec_name->update([
+        $specName = AttributeSpec::findOrfail($data['id']);
+        $specName->update([
             'spec_name' => $data['spec_name'],
         ]);
-        return AttributeSpec::findOrfail($data['id']);
+        return $specName;
     }
 }
