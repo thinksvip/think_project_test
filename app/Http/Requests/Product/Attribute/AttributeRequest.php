@@ -24,7 +24,7 @@ class AttributeRequest extends FormRequest
     public function rules()
     {
         return [
-            'attribute_name' => 'required|string|max:50|unique_with:attributes,enterprise_id,attribute_name',
+            'attribute_name' => [is_create() ? 'unique_with:attributes,enterprise_id,attribute_name' : 'filled','required','string','max:50'],
             'specs' => 'json',
             'is_disable' => [is_create() ? 'required' : 'filled', 'boolean'],
         ];
