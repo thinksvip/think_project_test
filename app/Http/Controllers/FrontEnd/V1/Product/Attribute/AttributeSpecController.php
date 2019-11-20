@@ -30,7 +30,7 @@ class AttributeSpecController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return AttributeSpecResource
      */
-    public function store(AttributeSpecRequest $request) : AttributeSpecResource
+    public function store(AttributeSpecRequest $request)
     {
         try{
             $spec = app(CreateAttributeSpec::class)->execute($request->all());
