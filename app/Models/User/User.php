@@ -47,4 +47,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function weixinUser()
+    {
+        return $this->hasOne(WeixinUser::class,'users_id','id');
+    }
 }

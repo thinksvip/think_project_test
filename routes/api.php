@@ -18,4 +18,5 @@ Route::prefix('FrontEnd/V1')->namespace('FrontEnd\V1')->group(function (){
     Route::post('authenticate','Auth\ApiController@authenticate');
     Route::post('register','Auth\ApiController@register');
     Route::get('logout','Auth\ApiController@logout');
+    Route::get('auth','Auth\SocialiteController@redirectToProvider');
 });
